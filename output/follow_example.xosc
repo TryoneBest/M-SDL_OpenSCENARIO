@@ -1,0 +1,1124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OpenSCENARIO>
+	<FileHeader author="renhe xu" date="2020-06-27T04:34:47.414263" description="Scenario - cut in scenario" revMajor="1" revMinor="0"/>
+	<ParameterDeclaration/>
+	<Catalogs>
+		<VehicleCatalog>
+			<Directory path="Distros/Current/Config/Players/Vehicles"/>
+		</VehicleCatalog>
+		<DriverCatalog>
+			<Directory path="Distros/Current/Config/Players/driverCfg.xml"/>
+		</DriverCatalog>
+		<PedestrianCatalog>
+			<Directory path=""/>
+		</PedestrianCatalog>
+		<PedestrianControllerCatalog>
+			<Directory path=""/>
+		</PedestrianControllerCatalog>
+		<MiscObjectCatalog>
+			<Directory path="Distros/Current/Config/Players/Objects"/>
+		</MiscObjectCatalog>
+		<EnvironmentCatalog>
+			<Directory path=""/>
+		</EnvironmentCatalog>
+		<ManeuverCatalog>
+			<Directory path=""/>
+		</ManeuverCatalog>
+		<TrajectoryCatalog>
+			<Directory path=""/>
+		</TrajectoryCatalog>
+		<RouteCatalog>
+			<Directory path=""/>
+		</RouteCatalog>
+	</Catalogs>
+	<RoadNetwork>
+		<Logics filepath="../Runtime/Tools/RodDistro_6710_Rod4.6.0/DefaultProject/Odr/city_quick_3.xodr"/>
+		<SceneGraph filepath="../Runtime/Tools/RodDistro_6710_Rod4.6.0/DefaultProject/Database/city_quick_3.opt.osgb"/>
+	</RoadNetwork>
+	<Entities>
+		<Object name="Ego">
+			<Vehicle category="car" name="Audi_A3_2009_black">
+				<ParameterDeclaration/>
+				<Performance mass="1560" maxDeceleration="9.5" maxSpeed="80"/>
+				<BoundingBox>
+					<Center x="1.317" y="0" z="0.7115"/>
+					<Dimension height="1.423" length="4.3" width="1.776"/>
+				</BoundingBox>
+				<Axles>
+					<Front maxSteering="0.48" positionX="2.591" positionZ="0.3205" trackWidth="1.576" wheelDiameter="0.641"/>
+					<Rear maxSteering="0" positionX="0" positionZ="0.3205" trackWidth="1.576" wheelDiameter="0.641"/>
+				</Axles>
+				<Properties>
+					<Property name="control" value="external"/>
+				</Properties>
+			</Vehicle>
+			<Controller>
+				<Driver name="DefaultDriver">
+					<Description age="28" eyeDistance="0.065" height="1.8" sex="male" weight="60">
+						<Properties/>
+					</Description>
+				</Driver>
+			</Controller>
+		</Object>
+		<Object name="Target180.0">
+			<Vehicle category="car" name="Audi_A3_2009_black">
+				<ParameterDeclaration/>
+				<Performance mass="1560" maxDeceleration="9.5" maxSpeed="80"/>
+				<BoundingBox>
+					<Center x="1.317" y="0" z="0.7115"/>
+					<Dimension height="1.423" length="4.3" width="1.776"/>
+				</BoundingBox>
+				<Axles>
+					<Front maxSteering="0.48" positionX="2.591" positionZ="0.3205" trackWidth="1.576" wheelDiameter="0.641"/>
+					<Rear maxSteering="0" positionX="0" positionZ="0.3205" trackWidth="1.576" wheelDiameter="0.641"/>
+				</Axles>
+				<Properties>
+					<Property name="control" value="internal"/>
+				</Properties>
+			</Vehicle>
+			<Controller>
+				<Driver name="DefaultDriver">
+					<Description age="28" eyeDistance="0.065" height="1.8" sex="male" weight="60">
+						<Properties/>
+					</Description>
+				</Driver>
+			</Controller>
+		</Object>
+	</Entities>
+	<Storyboard>
+		<Init>
+			<Actions>
+				<Private object="Ego">
+					<Action>
+						<Longitudinal>
+							<Speed>
+								<Target>
+									<Absolute value="8.898059113896384"/>
+								</Target>
+								<Dynamics shape="step"/>
+							</Speed>
+						</Longitudinal>
+					</Action>
+					<Action>
+						<Position>
+							<World h="0" p="0" r="0" x="1.4" y="-7.2" z="0"/>
+						</Position>
+					</Action>
+				</Private>
+				<Private object="Target180.0">
+					<Action>
+						<Longitudinal>
+							<Speed>
+								<Target>
+									<Absolute value="8.543050543166215"/>
+								</Target>
+								<Dynamics shape="step"/>
+							</Speed>
+						</Longitudinal>
+					</Action>
+					<Action>
+						<Position>
+							<World h="0" p="0" r="0" x="41.4" y="-7.712" z="0"/>
+						</Position>
+					</Action>
+				</Private>
+			</Actions>
+		</Init>
+		<Story name="CutInStory" owner="">
+			<Act name="CutInAct">
+				<Sequence name="EgoSequence" numberOfExecutions="1">
+					<Actors>
+						<Entity name="Ego"/>
+					</Actors>
+					<Maneuver name="EgoManeuver">
+						<Event name="EgoEvent1" priority="overwrite">
+							<Action name="EgoAction1">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="8.898059113896384"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="EgoCondition1">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="1"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="EgoEvent2" priority="overwrite">
+							<Action name="EgoAction2">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="8.260821413632893"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="EgoCondition2">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="2"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="EgoEvent3" priority="overwrite">
+							<Action name="EgoAction3">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="8.307343359428852"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="EgoCondition3">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="3"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="EgoEvent4" priority="overwrite">
+							<Action name="EgoAction4">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="8.785048089140828"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="EgoCondition4">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="4"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="EgoEvent5" priority="overwrite">
+							<Action name="EgoAction5">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="9.49848553141149"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="EgoCondition5">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="5"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="EgoEvent6" priority="overwrite">
+							<Action name="EgoAction6">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="10.302754066290156"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="EgoCondition6">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="6"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="EgoEvent7" priority="overwrite">
+							<Action name="EgoAction7">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="11.096922185853334"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="EgoCondition7">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="7"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="EgoEvent8" priority="overwrite">
+							<Action name="EgoAction8">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="11.817450154825261"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="EgoCondition8">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="8"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="EgoEvent9" priority="overwrite">
+							<Action name="EgoAction9">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="12.431611671198445"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="EgoCondition9">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="9"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="EgoEvent10" priority="overwrite">
+							<Action name="EgoAction10">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="12.930915526857005"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="EgoCondition10">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="10"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="EgoEvent11" priority="overwrite">
+							<Action name="EgoAction11">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="13.347399922065065"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="EgoCondition11">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="11"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="EgoEvent12" priority="overwrite">
+							<Action name="EgoAction12">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="13.67145135361716"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="EgoCondition12">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="12"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="EgoEvent13" priority="overwrite">
+							<Action name="EgoAction13">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="13.925276852111105"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="EgoCondition13">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="13"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="EgoEvent14" priority="overwrite">
+							<Action name="EgoAction14">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="14.120698469338025"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="EgoCondition14">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="14"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="EgoEvent15" priority="overwrite">
+							<Action name="EgoAction15">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="14.272030140371285"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="EgoCondition15">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="15"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="EgoEvent16" priority="overwrite">
+							<Action name="EgoAction16">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="14.387852139180213"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="EgoCondition16">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="16"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="EgoEvent17" priority="overwrite">
+							<Action name="EgoAction17">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="14.467396708994654"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="EgoCondition17">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="17"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="EgoEvent18" priority="overwrite">
+							<Action name="EgoAction18">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="14.496933692672467"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="EgoCondition18">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="18"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="EgoEvent19" priority="overwrite">
+							<Action name="EgoAction19">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="14.446156163066952"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="EgoCondition19">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="19"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="EgoEvent20" priority="overwrite">
+							<Action name="EgoAction20">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="14.264566053394393"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="EgoCondition20">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="20"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="EgoEvent21" priority="overwrite">
+							<Action name="EgoAction21">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="13.87785978760149"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="EgoCondition21">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="21"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+					</Maneuver>
+				</Sequence>
+				<Sequence name="Target180.0Sequence" numberOfExecutions="1">
+					<Actors>
+						<Entity name="Target180.0"/>
+					</Actors>
+					<Maneuver name="Target180.0Maneuver">
+						<Event name="Target180.0Event1" priority="overwrite">
+							<Action name="Target180.0Action1">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="8.543050543166215"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="Target180.0Condition1">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="1"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="Target180.0Event2" priority="overwrite">
+							<Action name="Target180.0Action2">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="9.194629913667573"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="Target180.0Condition2">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="2"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="Target180.0Event3" priority="overwrite">
+							<Action name="Target180.0Action3">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="9.613368679009783"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="Target180.0Condition3">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="3"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="Target180.0Event4" priority="overwrite">
+							<Action name="Target180.0Action4">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="9.886281600790516"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="Target180.0Condition4">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="4"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="Target180.0Event5" priority="overwrite">
+							<Action name="Target180.0Action5">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="10.07899030861244"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="Target180.0Condition5">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="5"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="Target180.0Event6" priority="overwrite">
+							<Action name="Target180.0Action6">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="10.238367395048883"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="Target180.0Condition6">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="6"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="Target180.0Event7" priority="overwrite">
+							<Action name="Target180.0Action7">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="10.395180510609523"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="Target180.0Condition7">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="7"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="Target180.0Event8" priority="overwrite">
+							<Action name="Target180.0Action8">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="10.566736458706048"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="Target180.0Condition8">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="8"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="Target180.0Event9" priority="overwrite">
+							<Action name="Target180.0Action9">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="10.759525290617844"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="Target180.0Condition9">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="9"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="Target180.0Event10" priority="overwrite">
+							<Action name="Target180.0Action10">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="10.971864400460026"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="Target180.0Condition10">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="10"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="Target180.0Event11" priority="overwrite">
+							<Action name="Target180.0Action11">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="11.207119000002407"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="Target180.0Condition11">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="11"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="Target180.0Event12" priority="overwrite">
+							<Action name="Target180.0Action12">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="11.407119000002453"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="Target180.0Condition12">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="12"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="Target180.0Event13" priority="overwrite">
+							<Action name="Target180.0Action13">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="11.607118999999997"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="Target180.0Condition13">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="13"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="Target180.0Event14" priority="overwrite">
+							<Action name="Target180.0Action14">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="11.807118999999998"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="Target180.0Condition14">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="14"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="Target180.0Event15" priority="overwrite">
+							<Action name="Target180.0Action15">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="12.007119"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="Target180.0Condition15">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="15"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="Target180.0Event16" priority="overwrite">
+							<Action name="Target180.0Action16">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="12.207119"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="Target180.0Condition16">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="16"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="Target180.0Event17" priority="overwrite">
+							<Action name="Target180.0Action17">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="12.407119"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="Target180.0Condition17">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="17"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="Target180.0Event18" priority="overwrite">
+							<Action name="Target180.0Action18">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="12.607118999999997"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="Target180.0Condition18">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="18"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="Target180.0Event19" priority="overwrite">
+							<Action name="Target180.0Action19">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="12.807118999999993"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="Target180.0Condition19">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="19"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="Target180.0Event20" priority="overwrite">
+							<Action name="Target180.0Action20">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="13.007118999999983"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="Target180.0Condition20">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="20"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="Target180.0Event21" priority="overwrite">
+							<Action name="Target180.0Action21">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="1"/>
+											<Target>
+												<Absolute value="13.20711899999997"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="Target180.0Condition21">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="21"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+					</Maneuver>
+				</Sequence>
+				<Conditions>
+					<Start>
+						<ConditionGroup>
+							<Condition delay="0" edge="rising" name="Condition0">
+								<ByValue>
+									<SimulationTime rule="greater_than" value="0"/>
+								</ByValue>
+							</Condition>
+						</ConditionGroup>
+					</Start>
+				</Conditions>
+			</Act>
+		</Story>
+		<EndConditions/>
+	</Storyboard>
+</OpenSCENARIO>
