@@ -1,0 +1,21 @@
+scenario dut.cut_in_and_slow:
+    car1: car # The other car
+    side: av_left_right # A side: left or right
+    path: path # A path in the map
+    path_min_lanes(path, 2) # Path should have at least two lanes
+    do serial:
+        get_ahead: parallel(duration: in [1..5]s):
+            dut.car.drive(path) with:
+                speed([30..70]kph)
+            car1.drive(path, adjust: TRUE) with:
+                position([5..100]m, behind: dut.car,at: start)
+                position([5..15]m, ahead_of: dut.car, at: end)
+        change_lane: parallel(duration: in [2..5]s):
+            dut.car.drive(path)
+            car1.drive(path) with:
+                lane(side_of: dut.car, side: side, at: start)
+                lane(same_as: dut.car, at: end)
+        slow: parallel(duration: in [1..5]s):
+            dut.car.drive(path)
+            car1.drive(path) with:
+            speed_change(-[10..15]kph)

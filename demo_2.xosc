@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+	<FileHeader author="fty" date="2020-02-18T12:20:20" description="" revMajor="1" revMinor="0"/>
+	<ParameterDeclaration/>
+	<Catalogs>
+		<VehicleCatalog>
+			<Directory path="Distros/Current/Config/Players/Vehicles"/>
+		</VehicleCatalog>
+		<DriverCatalog>
+			<Directory path="Distros/Current/Config/Players/driverCfg.xml"/>
+		</DriverCatalog>
+		<PedestrianCatalog>
+			<Directory path=""/>
+		</PedestrianCatalog>
+		<PedestrianControllerCatalog>
+			<Directory path=""/>
+		</PedestrianControllerCatalog>
+		<MiscObjectCatalog>
+			<Directory path="Distros/Current/Config/Players/Objects"/>
+		</MiscObjectCatalog>
+		<EnvironmentCatalog>
+			<Directory path=""/>
+		</EnvironmentCatalog>
+		<ManeuverCatalog>
+			<Directory path=""/>
+		</ManeuverCatalog>
+		<TrajectoryCatalog>
+			<Directory path=""/>
+		</TrajectoryCatalog>
+		<RouteCatalog>
+			<RouteCatalog path=""/>
+		</RouteCatalog>
+	</Catalogs>
+	<RoadNetwork>
+		<Logics filepath="Projects/Current/Databases/Germany.2018/Germany_2018.xodr"/>
+		<SceneGraph filepath="Projects/Current/Databases/Germany.2018/Germany_2018.opt.osgb"/>
+	</RoadNetwork>
+	<Entities>
+		<Object name="car0">
+			<Vehicle category="car" name="Audi_A3_2009_black">
+				<ParameterDeclaration/>
+				<Performance mass="1560" maxDeceleration="9.5" maxSpeed="58.4"/>
+				<BoudingBox>
+					<Center x="1.317" y="0" z="0.7115"/>
+					<Dimension height="1.423" length="4.3" width="1.776"/>
+				</BoudingBox>
+				<Axles>
+					<Front maxSteering="0.48" positionX="2.591" positionZ="0.3205" trackWidth="1.576" wheelDiameter="0.641"/>
+					<Rear maxSteering="0" positionX="0" positionZ="0.3205" trackWidth="1.576" wheelDiameter="0.641"/>
+				</Axles>
+				<Properties>
+					<Property name="control" value="external"/>
+				</Properties>
+			</Vehicle>
+			<Controller>
+				<Driver name="DefaultDriver">
+					<Description age="28" eyeDistance="0.065" height="1.8" sex="male" weight="60">
+						<Properties/>
+					</Description>
+				</Driver>
+			</Controller>
+		</Object>
+		<Object name="car1">
+			<Vehicle category="car" name="Audi_A3_2009_black">
+				<ParameterDeclaration/>
+				<Performance mass="1560" maxDeceleration="9.5" maxSpeed="58.4"/>
+				<BoudingBox>
+					<Center x="1.317" y="0" z="0.7115"/>
+					<Dimension height="1.423" length="4.3" width="1.776"/>
+				</BoudingBox>
+				<Axles>
+					<Front maxSteering="0.48" positionX="2.591" positionZ="0.3205" trackWidth="1.576" wheelDiameter="0.641"/>
+					<Rear maxSteering="0" positionX="0" positionZ="0.3205" trackWidth="1.576" wheelDiameter="0.641"/>
+				</Axles>
+				<Properties>
+					<Property name="control" value="internal"/>
+				</Properties>
+			</Vehicle>
+			<Controller>
+				<Driver name="DefaultDriver">
+					<Description age="28" eyeDistance="0.065" height="1.8" sex="male" weight="60">
+						<Properties/>
+					</Description>
+				</Driver>
+			</Controller>
+		</Object>
+	</Entities>
+	<Storyboard>
+		<Init>
+			<Actions>
+				<Private object="car0">
+					<Action>
+						<Longitudinal>
+							<Speed>
+								<Dynamics shape="step"/>
+								<Target>
+									<Absolute value="35"/>
+								</Target>
+							</Speed>
+						</Longitudinal>
+					</Action>
+					<Action>
+						<Position>
+							<World h="1.57" p="0" r="0" x="6043.413" y="-3930" z="0"/>
+						</Position>
+					</Action>
+				</Private>
+				<Private object="car1">
+					<Action>
+						<Longitudinal>
+							<Speed>
+								<Dynamics shape="step"/>
+								<Target>
+									<Absolute value="88"/>
+								</Target>
+							</Speed>
+						</Longitudinal>
+					</Action>
+					<Action>
+						<Position>
+							<World h="1.57" p="0" r="0" x="6043.413" y="-3902" z="0"/>
+						</Position>
+					</Action>
+				</Private>
+			</Actions>
+		</Init>
+		<Story name="MyStory" owner="">
+			<Act name="MyAct">
+				<Sequence name="New Sequence1" numberOfExecutions="1">
+					<Actors>
+						<Entity name="car0"/>
+					</Actors>
+					<Maneuver name="car0Maneuver">
+						<Event name="FollowFunction" priority="overwrite">
+							<Action name="AccAction">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="3"/>
+											<Target>
+												<Absolute value="67"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="StartCondition_of_event">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="0"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="LaneChangeFunction" priority="overwrite">
+							<Action name="LaneChangeAction">
+								<Private>
+									<Lateral>
+										<LaneChange>
+											<Dynamics shape="sinusoidal" time="2"/>
+											<Target>
+												<Relative object="car0" value="1"/>
+											</Target>
+										</LaneChange>
+									</Lateral>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="StartCondition_of_event">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="0"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+					</Maneuver>
+				</Sequence>
+				<Sequence name="New Sequence1" numberOfExecutions="1">
+					<Actors>
+						<Entity name="car1"/>
+					</Actors>
+					<Maneuver name="car1Maneuver">
+						<Event name="AccEvent" priority="overwrite">
+							<Action name="AccAction">
+								<Private>
+									<Longitudinal>
+										<Speed>
+											<Dynamics shape="linear" time="3"/>
+											<Target>
+												<Absolute value="67"/>
+											</Target>
+										</Speed>
+									</Longitudinal>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="StartCondition_of_event">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="0"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+						<Event name="LaneChangeEvent" priority="overwrite">
+							<Action name="LaneChangeAction">
+								<Private>
+									<Lateral>
+										<LaneChange>
+											<Dynamics shape="sinusoidal" time="2"/>
+											<Target>
+												<Relative object="car1" value="-1"/>
+											</Target>
+										</LaneChange>
+									</Lateral>
+								</Private>
+							</Action>
+							<StartConditions>
+								<ConditionGroup>
+									<Condition delay="0" edge="rising" name="StartCondition_of_event">
+										<ByValue>
+											<SimulationTime rule="greater_than" value="1"/>
+										</ByValue>
+									</Condition>
+								</ConditionGroup>
+							</StartConditions>
+						</Event>
+					</Maneuver>
+				</Sequence>
+				<Conditions>
+					<Start>
+						<ConditionGroup>
+							<Condition delay="0" edge="rising" name="">
+								<ByValue>
+									<SimulationTime rule="greater_than" value="0"/>
+								</ByValue>
+							</Condition>
+						</ConditionGroup>
+					</Start>
+				</Conditions>
+			</Act>
+		</Story>
+		<EndConditions/>
+	</Storyboard>
+</OpenSCENARIO>
