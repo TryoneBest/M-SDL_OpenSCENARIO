@@ -12,6 +12,4 @@
 - speed_or_range_len(sr_list)：判断列表里的数据长度，过滤掉一些明显不可能的数据
 - draw_graph_dis(ego_speed_list, target_list)：根据本车的速度和其他所有车的速度列表计算
 x轴和y轴的绝对位移图，也是为了研究特征
-## 切入场景
-- define_ego_pos(objects_range, objects_speed)：因为vtd上的默认地图是三车道，所以判断下
-ego初始位置应该在哪个车道
+- create_*+：生成格式要求的节点，具体看格式样例文件

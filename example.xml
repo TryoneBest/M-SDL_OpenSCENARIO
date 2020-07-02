@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<OpenSCENARIO>
-	<FileHeader author="Renhe Xu" date="2020-05-26T12:39:36.180891" description="Scenario - cut in scenario" revMajor="0" revMinor="9"/>
-	<ParameterDeclaration/>
-	<RoadNetwork>
-		<Logics filepath="Distros/Current/Databases/Crossing8Course/Crossing8Course.xodr"/>
-		<SceneGraph filepath="SampleDatabase_01.opt.osgb"/>
-	</RoadNetwork>
-</OpenSCENARIO>
